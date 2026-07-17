@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DSS Expediciones - Concurso CONPEHT 2026</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-container">
+            <div class="header-titles">
+                <span class="badge">CONPEHT 2026 — Región de Los Lagos</span>
+                <h1>Sistema de Apoyo a la Toma de Decisiones (DSS)</h1>
+                <p class="subtitle">Modelo Conceptual de Integración Multidimensional para Expediciones</p>
+            </div>
+            <div class="header-meta">
+                <p><strong>Investigador:</strong> Ignacio Reyes Guajardo</p>
+                <p><strong>Profesor Guía:</strong> Pablo Salucci</p>
+                <p class="school">Escuela de Ingeniería en Gestión de Expediciones y Ecoturismo (USS)</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="dashboard-grid">
+        <!-- Panel de Entradas -->
+        <section class="panel entries-panel">
+            <h2><span class="step-num">1</span> Configuración del Escenario</h2>
+            
+            <form id="dss-form">
+                <!-- Dimensión Territorio -->
+                <div class="form-group">
+                    <label for="route-select"><strong>Dimensión Territorio:</strong> Seleccionar Ruta</label>
+                    <select id="route-select" required>
+                        <option value="">Seleccione una ruta...</option>
+                        <option value="manquehue">Cerro Manquehue (Ruta Lo Curro)</option>
+                        <option value="provincia">Cerro Provincia (Puente Ñilhue)</option>
+                        <option value="plata">Quebrada de la Plata</option>
+                    </select>
+                </div>
+
+                <!-- Dimensión Factor Humano -->
+                <fieldset class="form-section">
+                    <legend>Dimensión Factor Humano</legend>
+                    
+                    <div class="form-group">
+                        <label for="human-experience">Experiencia del Grupo</label>
+                        <select id="human-experience" required>
+                            <option value="1">Principiante (Sin experiencia previa)</option>
+                            <option value="2">Intermedio (Conocimientos básicos)</option>
+                            <option value="3">Avanzado (Dominio técnico, cursos y autonomía)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="group-size">Tamaño de Grupo</label>
+                            <input type="number" id="group-size" min="1" value="2" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="avg-age">Edad Promedio</label>
+                            <input type="number" id="avg-age" min="5" value="25" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="activity-type">Tipo de Actividad</label>
+                            <select id="activity-type">
+                                <option value="recreativo">Trekking Recreativo</option>
+                                <option value="deportivo">Montañismo Deportivo</option>
+                                <option value="cientifico">Educativo / Científico</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="start-time">Horario de Salida</label>
+                            <select id="start-time" required>
+                                <option value="temprano">Temprano (Mañana)</option>
+                                <option value="tarde">Tarde (Mediodía/Tarde)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="equipments-box">
+                        <label><strong>Equipamiento Disponible:</strong></label>
+                        
+                        <div class="equip-group">
+                            <span class="group-title">Seguridad Obligatoria</span>
+                            <label><input type="checkbox" class="equip-check" value="botiquin" checked> Botiquín</label>
+                            <label><input type="checkbox" class="equip-check" value="linterna" checked> Linterna frontal</label>
+                            <label><input type="checkbox" class="equip-check" value="manta" checked> Manta térmica</label>
+                            <label><input type="checkbox" class="equip-check" value="silbato" checked> Silbato de emergencia</label>
+                        </div>
+
+                        <div class="equip-group">
+                            <span class="group-title">Navegación y Vestimenta</span>
+                            <label><input type="checkbox" class="equip-check" value="gps"> Mapas offline / GPS</label>
+                            <label><input type="checkbox" class="equip-check" value="capas" checked> Sistema de capas (abrigo)</label>
+                            <label><input type="checkbox" class="equip-check" value="calzado" checked> Calzado técnico</label>
+                        </div>
+
+                        <div class="equip-group">
+                            <span class="group-title">Soporte e Hidratación</span>
+                            <label><input type="checkbox" class="equip-check" value="bastones"> Bastones de trekking</label>
+                            <label><input type="checkbox" class="equip-check" value="mochila" checked> Mochila adecuada</label>
+                            <label><input type="checkbox" class="equip-check" value="hidratacion" checked> Sist. hidratación (min. 2L)</label>
+                            <label><input type="checkbox" class="equip-check" value="raciones"> Raciones de marcha</label>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <button type="submit" id="btn-calculate" class="btn-primary">Procesar Integración DSS</button>
+            </form>
+        </section>
+
+        <!-- Panel de Resultados -->
+        <section class="panel results-panel">
+            <h2><span class="step-num">2</span> Recomendación y Evaluación de Riesgo</h2>
+            
+            <div id="loading-spinner" class="spinner hidden">
+                <div class="double-bounce1"></div>
+                <div class="double-bounce2"></div>
+                <p>Consultando APIs de Open-Meteo y GBIF en tiempo real...</p>
+            </div>
+
+            <div id="results-placeholder" class="placeholder">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                <p>Configure las variables de la expedición y haga clic en <strong>Procesar Integración DSS</strong> para generar la evaluación multidimensional.</p>
+            </div>
+
+            <div id="results-content" class="results-content hidden">
+                <!-- Tarjeta del Nivel de Riesgo -->
+                <div class="risk-card" id="risk-card">
+                    <div class="risk-gauge-header">
+                        <span class="risk-label">Evaluación de Riesgo de la Expedición</span>
+                        <h3 id="risk-level-title">BAJO</h3>
+                    </div>
+                    <div class="score-display">
+                        <span class="score-num" id="total-score">0.0</span><span class="score-max">/ 12 pts</span>
+                    </div>
+                </div>
+
+                <!-- Nomenclatura del Sistema de Puntajes -->
+                <div class="legend-box">
+                    <span class="legend-title">Nomenclatura del Modelo de Riesgos (Total: 12 pts)</span>
+                    <div class="legend-items">
+                        <span class="legend-item low"><span class="dot"></span> Bajo (9.1 - 12)</span>
+                        <span class="legend-item moderate"><span class="dot"></span> Moderado (6.1 - 9)</span>
+                        <span class="legend-item high"><span class="dot"></span> Alto (3.1 - 6)</span>
+                        <span class="legend-item critical"><span class="dot"></span> Crítico (0 - 3)</span>
+                    </div>
+                </div>
+
+                <!-- Desglose por Dimensión -->
+                <div class="dimensions-breakdown">
+                    <h4>Desglose Multidimensional de Puntuación</h4>
+                    <div class="dimension-grid">
+                        <div class="dim-score-card">
+                            <span class="dim-title">Ambiente (API Open-Meteo)</span>
+                            <div class="progress-bar-container">
+                                <div class="progress-bar" id="bar-ambiente"></div>
+                            </div>
+                            <span class="score-val" id="score-ambiente">0 / 3</span>
+                        </div>
+                        <div class="dim-score-card">
+                            <span class="dim-title">Territorio (Wikiloc Ficha)</span>
+                            <div class="progress-bar-container">
+                                <div class="progress-bar" id="bar-territorio"></div>
+                            </div>
+                            <span class="score-val" id="score-territorio">0 / 3</span>
+                        </div>
+                        <div class="dim-score-card">
+                            <span class="dim-title">Patrimonio (API GBIF)</span>
+                            <div class="progress-bar-container">
+                                <div class="progress-bar" id="bar-patrimonio"></div>
+                            </div>
+                            <span class="score-val" id="score-patrimonio">0 / 3</span>
+                        </div>
+                        <div class="dim-score-card">
+                            <span class="dim-title">Factor Humano (Declarado)</span>
+                            <div class="progress-bar-container">
+                                <div class="progress-bar" id="bar-humano"></div>
+                            </div>
+                            <span class="score-val" id="score-humano">0 / 3</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resumen de Datos Obtenidos en Tiempo Real -->
+                <div class="api-realtime-data">
+                    <h4>Datos recuperados por el sistema</h4>
+                    <div class="api-grid">
+                        <div class="api-subcard">
+                            <h5>🌦️ Datos Ambientales (Open-Meteo)</h5>
+                            <p id="weather-details">Cargando...</p>
+                        </div>
+                        <div class="api-subcard">
+                            <h5>🌿 Biodiversidad Científica (GBIF)</h5>
+                            <ul id="biodiversity-list" class="bio-list"></ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recomendación Generada (Lenguaje Natural) -->
+                <div class="ai-recommendation-box">
+                    <div class="box-title">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                        <span>Recomendación Generada del Copiloto DSS</span>
+                    </div>
+                    <div class="ai-text-content" id="recommendation-text"></div>
+                    <div class="disclaimer-alert">
+                        <strong>Nota de Seguridad Profesional:</strong> Esta es una recomendación automatizada de apoyo basada en la integración de datos abiertos. No reemplaza el juicio experto, la experiencia en terreno ni la decisión táctica final del guía de montaña.
+                    </div>
+                </div>
+
+                <!-- Wikiloc Attribution -->
+                <div class="wikiloc-attribution">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/ee/Wikiloc_logo_solid.svg" alt="Wikiloc Logo" onerror="this.style.display='none'">
+                    <span>Ficha técnica territorial recopilada, procesada y curada desde registros históricos y geodésicos de <strong>Wikiloc</strong>.</span>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>

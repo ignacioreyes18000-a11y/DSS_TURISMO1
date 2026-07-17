@@ -1,0 +1,52 @@
+{
+  "rutas": [
+    {
+      "id": "manquehue",
+      "nombre": "Cerro Manquehue (Ruta Lo Curro - Vía Roja)",
+      "lat": -33.3461,
+      "lon": -70.5794,
+      "distancia": "5.15 km",
+      "tipo": "Ida y vuelta",
+      "desnivel_positivo": 571,
+      "desnivel_negativo": 571,
+      "altitud_maxima": 1646,
+      "altitud_minima": 1058,
+      "puntos_agua": "No existen fuentes de agua en la ruta; debes llevar mínimo 2 litros por persona.",
+      "refugios": "No hay refugios habilitados en la ruta.",
+      "cierres": "Senderos administrados que exigen registro. El acceso principal (Vía Roja) suele presentar cierres parciales intermitentes por fallos judiciales y protección ambiental, por lo que debes verificar el estado del sendero.",
+      "dificultad_base_score": 2
+    },
+    {
+      "id": "provincia",
+      "nombre": "Cerro Provincia (Ruta Normal por Puente Ñilhue)",
+      "lat": -33.4358,
+      "lon": -70.4353,
+      "distancia": "9.75 km",
+      "tipo": "Solo ida",
+      "desnivel_positivo": 1662,
+      "desnivel_negativo": 21,
+      "altitud_maxima": 2703,
+      "altitud_minima": 1037,
+      "puntos_agua": "No hay fuentes de agua naturales en todo el trayecto.",
+      "refugios": "Cuenta con un domo de emergencia en la zona de cumbre (Proyecto Protege).",
+      "cierres": "Es una ruta concesionada por la Asociación Parque Cordillera. En horario de invierno, la hora límite de ingreso es a las 13:00 hrs y el cierre de portones es a las 19:00 hrs. Para tarifas, permisos e información actualizada, revisa el Portal de Parques Cordillera.",
+      "dificultad_base_score": 1
+    },
+    {
+      "id": "plata",
+      "nombre": "Quebrada de la Plata",
+      "lat": -33.4981,
+      "lon": -70.8994,
+      "distancia": "7.84 km",
+      "tipo": "Ida y vuelta",
+      "desnivel_positivo": 279,
+      "desnivel_negativo": 279,
+      "altitud_maxima": 767,
+      "altitud_minima": 521,
+      "puntos_agua": "No hay agua potable en el sendero.",
+      "refugios": "No existen refugios de montaña.",
+      "cierres": "El área es administrada por la Facultad de Ciencias Agronómicas de la Universidad de Chile. El acceso suele requerir coordinación o inscripción previa, dependiendo de la época del año o si vas a un evento específico.",
+      "dificultad_base_score": 3
+    }
+  ]
+}
